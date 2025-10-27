@@ -1,0 +1,6 @@
+framework module Pods_New_Smart {
+  umbrella header "Pods-New Smart-umbrella.h"
+
+  export *
+  module * { export * }
+}

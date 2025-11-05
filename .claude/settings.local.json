@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(pod deintegrate:*)",
+      "Bash(pod install)",
+      "Bash(xcodebuild:*)",
+      "Bash(plutil:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

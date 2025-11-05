@@ -1,8 +1,9 @@
 import SwiftUI
+import Combine
 
 struct TVListView: View {
     @EnvironmentObject var tvConnectionManager: TVConnectionManager
-    @StateObject private var discoveryService = NetworkScanner()
+    @StateObject private var discoveryService = NetworkScanner.shared
     @Binding var isPresented: Bool
     @State private var showingConnectionAlert = false
     @State private var tvToConnect: DiscoveredTV?
@@ -118,15 +119,33 @@ struct TVListView: View {
         .alert("Connect to TV?", isPresented: $showingConnectionAlert) {
             Button("Connect") {
                 if let tv = tvToConnect {
-                    tvConnectionManager.connectToTV(tv)
+                    connectToSelectedTV(tv)
                     isPresented = false
                 }
             }
             Button("Cancel", role: .cancel) {}
         } message: {
             if let tv = tvToConnect {
-                Text("Connect to \(tv.displayName) at \(tv.ipAddress)?")
+                Text("Connect to \(tv.name) at \(tv.ipAddress)?")
             }
+        }
+    }
+
+    // MARK: - Samsung TV Connection Logic
+    private func connectToSelectedTV(_ tv: DiscoveredTV) {
+        print("🔗 TVListView: Connecting to selected TV: \(tv.name)")
+
+        // Check if it's a Samsung TV and we have a service for it
+        if tv.manufacturer.lowercased().contains("samsung"),
+           let samsungService = discoveryService.getSamsungTVService(for: tv) {
+            
+            print("Service uri: ====")
+            print(samsungService.uri)
+            print("📺 TVListView: Connecting to Samsung TV with SmartView service")
+            tvConnectionManager.connectSamsungTVService(samsungService, discoveredTV: tv)
+        } else {
+            print("🖥️ TVListView: Connecting to non-Samsung TV or Samsung TV without service")
+            tvConnectionManager.connectToTV(tv)
         }
     }
 }
@@ -156,9 +175,8 @@ struct TVDeviceRow: View {
                     .frame(width: 28, height: 28)
             }
             
-            // TV Info
             VStack(alignment: .leading, spacing: 4) {
-                Text(tv.displayName)
+                Text(tv.name)
                     .foregroundColor(.white)
                     .font(.headline)
                     .lineLimit(1)

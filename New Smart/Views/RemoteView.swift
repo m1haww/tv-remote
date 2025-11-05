@@ -13,6 +13,16 @@ struct RemoteView: View {
     @State private var showKeyboard = false
     @State private var keyboardText = ""
     @State private var showTVList = false
+
+    // Samsung TV detection
+    private var isSamsungTV: Bool {
+        tvConnectionManager.connectedTV?.manufacturer.lowercased().contains("samsung") == true
+    }
+
+    // Helper function to determine if we can send remote commands
+    private var canSendCommands: Bool {
+        return tvConnectionManager.isConnectedToTV && isSamsungTV
+    }
     
     var body: some View {
         ZStack {
@@ -54,10 +64,34 @@ struct RemoteView: View {
                             .fontWeight(.semibold)
                         
                         HStack(spacing: 8) {
-                            Text(tvConnectionManager.isConnectedToTV ? "Connected" : "Tap to connect")
-                                .foregroundColor(tvConnectionManager.isConnectedToTV ? .blue : .blue)
-                                .font(.subheadline)
-                            
+                            // Connection status with Samsung detection
+                            if tvConnectionManager.isConnectedToTV {
+                                if isSamsungTV {
+                                    Text("🔗 Samsung TV Connected")
+                                        .foregroundColor(.green)
+                                        .font(.subheadline)
+                                } else {
+                                    Text("Connected")
+                                        .foregroundColor(.blue)
+                                        .font(.subheadline)
+                                }
+                            } else {
+                                switch tvConnectionManager.connectionStatus {
+                                case .connecting:
+                                    Text("Connecting...")
+                                        .foregroundColor(.orange)
+                                        .font(.subheadline)
+                                case .failed:
+                                    Text("Connection failed")
+                                        .foregroundColor(.red)
+                                        .font(.subheadline)
+                                default:
+                                    Text("Tap to connect")
+                                        .foregroundColor(.blue)
+                                        .font(.subheadline)
+                                }
+                            }
+
                             if tvConnectionManager.isConnectedToTV {
                                 Button("Disconnect") {
                                     tvConnectionManager.disconnectFromTV()
@@ -83,6 +117,26 @@ struct RemoteView: View {
                         .stroke(Color(hex: "110E19"), lineWidth: 1)
                 )
                 .padding(.horizontal, 20)
+
+                // Error message display
+                if let errorMessage = tvConnectionManager.connectionError {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
+                        .padding(.top, -10)
+                }
+
+                // Samsung TV specific status
+                if tvConnectionManager.isConnectedToTV && !isSamsungTV {
+                    Text("⚠️ Connected to non-Samsung TV. Remote controls may not work.")
+                        .foregroundColor(.orange)
+                        .font(.caption)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
+                        .padding(.top, -10)
+                }
                 
                 
                     
@@ -159,7 +213,7 @@ struct RemoteView: View {
                 
                 // Directional Pad or Coming Soon
                 if isTargetSelected {
-                    DirectionalPad()
+                    DirectionalPad(tvConnectionManager: tvConnectionManager)
                 } else {
                     VStack(spacing: 20) {
                         Text("Coming Soon")
@@ -181,17 +235,32 @@ struct RemoteView: View {
                     // Row 1
                     HStack(spacing: 15) {
                         RemoteButton(icon: "arrow.uturn.left") {
-                            print("Back pressed")
+                            if canSendCommands {
+                                print("📺 Sending Back command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.back)
+                            } else {
+                                print("❌ Cannot send Back - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
-                        
+
                         PowerButton(action: {
-                            print("Power pressed")
+                            if canSendCommands {
+                                print("📺 Sending Power command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.powerToggle)
+                            } else {
+                                print("❌ Cannot send Power - not connected to Samsung TV")
+                            }
                         })
                         .frame(maxWidth: .infinity)
-                        
+
                         RemoteButton(icon: "house") {
-                            print("Home pressed")
+                            if canSendCommands {
+                                print("📺 Sending Home command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.home)
+                            } else {
+                                print("❌ Cannot send Home - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -200,17 +269,30 @@ struct RemoteView: View {
                     // Row 2
                     HStack(spacing: 15) {
                         RemoteButton(icon: "goforward") {
-                            print("Forward pressed")
+                            if canSendCommands {
+                                print("📺 Sending Forward command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.next)
+                            } else {
+                                print("❌ Cannot send Forward - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
-                        
+
                         RemoteButton(icon: "mic") {
-                            // Mic functionality can be added later
+                            // Voice functionality - could be implemented later with Samsung's voice API
+                            print("🎤 Voice command not yet implemented")
                         }
                         .frame(maxWidth: .infinity)
-                        
+
                         RemoteButton(icon: "asterisk") {
-                            // Asterisk functionality can be added later
+                            // Menu/Settings button for Samsung TV
+                            if canSendCommands {
+                                print("📺 Sending Menu command to Samsung TV")
+                                // Could add menu command to enum later
+                                print("🔧 Menu command not yet mapped")
+                            } else {
+                                print("❌ Cannot send Menu - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -219,17 +301,32 @@ struct RemoteView: View {
                     // Row 3
                     HStack(spacing: 15) {
                         RemoteButton(icon: "backward.end") {
-                            print("Previous pressed")
+                            if canSendCommands {
+                                print("📺 Sending Previous command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.previous)
+                            } else {
+                                print("❌ Cannot send Previous - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
-                        
+
                         RemoteButton(icon: "playpause") {
-                            tvConnectionManager.sendTVCommand(.playPause)
+                            if canSendCommands {
+                                print("📺 Sending Play/Pause command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.playPause)
+                            } else {
+                                print("❌ Cannot send Play/Pause - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
-                        
+
                         RemoteButton(icon: "forward.end") {
-                            print("Next pressed")
+                            if canSendCommands {
+                                print("📺 Sending Next command to Samsung TV")
+                                tvConnectionManager.sendTVCommand(.next)
+                            } else {
+                                print("❌ Cannot send Next - not connected to Samsung TV")
+                            }
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -295,7 +392,12 @@ struct RemoteView: View {
                         
                         Button(action: {
                             if !keyboardText.isEmpty {
-                                print("Sending text: \(keyboardText)")
+                                if canSendCommands {
+                                    print("📺 Sending text to Samsung TV: \(keyboardText)")
+                                    tvConnectionManager.sendTextToTV(keyboardText)
+                                } else {
+                                    print("❌ Cannot send text - not connected to Samsung TV")
+                                }
                             }
                             showKeyboard = false
                             keyboardText = ""
@@ -343,7 +445,18 @@ struct RemoteView: View {
 }
 
 struct DirectionalPad: View {
+    let tvConnectionManager: TVConnectionManager
     @State private var pressedButton: String? = nil
+
+    // Samsung TV detection
+    private var isSamsungTV: Bool {
+        tvConnectionManager.connectedTV?.manufacturer.lowercased().contains("samsung") == true
+    }
+
+    // Helper function to determine if we can send remote commands
+    private var canSendCommands: Bool {
+        return tvConnectionManager.isConnectedToTV && isSamsungTV
+    }
     
     var body: some View {
         ZStack {
@@ -409,7 +522,12 @@ struct DirectionalPad: View {
             VStack(spacing: 0) {
                 // Up button
                 Button(action: {
-                    print("Up pressed")
+                    if canSendCommands {
+                        print("📺 Sending Up command to Samsung TV")
+                        tvConnectionManager.sendTVCommand(.up)
+                    } else {
+                        print("❌ Cannot send Up - not connected to Samsung TV")
+                    }
                 }) {
                     Color.clear
                         .frame(width: 80, height: 70)
@@ -429,7 +547,12 @@ struct DirectionalPad: View {
                 HStack(spacing: 0) {
                     // Left button
                     Button(action: {
-                        print("Left pressed")
+                        if canSendCommands {
+                            print("📺 Sending Left command to Samsung TV")
+                            tvConnectionManager.sendTVCommand(.left)
+                        } else {
+                            print("❌ Cannot send Left - not connected to Samsung TV")
+                        }
                     }) {
                         Color.clear
                             .frame(width: 70, height: 80)
@@ -448,7 +571,12 @@ struct DirectionalPad: View {
                     
                     // Center OK button
                     Button(action: {
-                        print("OK pressed")
+                        if canSendCommands {
+                            print("📺 Sending Select command to Samsung TV")
+                            tvConnectionManager.sendTVCommand(.select)
+                        } else {
+                            print("❌ Cannot send Select - not connected to Samsung TV")
+                        }
                     }) {
                         Color.clear
                             .frame(width: 140, height: 80)
@@ -467,7 +595,12 @@ struct DirectionalPad: View {
                     
                     // Right button
                     Button(action: {
-                        print("Right pressed")
+                        if canSendCommands {
+                            print("📺 Sending Right command to Samsung TV")
+                            tvConnectionManager.sendTVCommand(.right)
+                        } else {
+                            print("❌ Cannot send Right - not connected to Samsung TV")
+                        }
                     }) {
                         Color.clear
                             .frame(width: 70, height: 80)
@@ -487,7 +620,12 @@ struct DirectionalPad: View {
                 
                 // Down button
                 Button(action: {
-                    print("Down pressed")
+                    if canSendCommands {
+                        print("📺 Sending Down command to Samsung TV")
+                        tvConnectionManager.sendTVCommand(.down)
+                    } else {
+                        print("❌ Cannot send Down - not connected to Samsung TV")
+                    }
                 }) {
                     Color.clear
                         .frame(width: 80, height: 70)

@@ -128,8 +128,3 @@ struct SettingRowNew: View {
         .buttonStyle(PlainButtonStyle())
     }
 }
-
-
-#Preview {
-    SettingsView()
-}

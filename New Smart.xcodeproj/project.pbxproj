@@ -7,16 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C9AD0CA2EAF8C34001F3F4D /* TVCommanderKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5C9AD0C92EAF8C34001F3F4D /* TVCommanderKit */; };
-		7BA0D7A5958BBD6F45292E90 /* Pods_New_Smart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D908667347FFF18528E6DC3 /* Pods_New_Smart.framework */; };
+		1E86213604FD6BF575F3666D /* Pods_New_Smart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C057A04699608164374EB379 /* Pods_New_Smart.framework */; };
+		5C9AD0512EAF8085001F3F4D /* SmartView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9AD0502EAF8085001F3F4D /* SmartView.framework */; };
+		5C9AD0522EAF8085001F3F4D /* SmartView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C9AD0502EAF8085001F3F4D /* SmartView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5C9AD0532EAF8085001F3F4D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5C9AD0522EAF8085001F3F4D /* SmartView.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		0C65D160C2DC73D66D7A99F9 /* Pods-New Smart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New Smart.debug.xcconfig"; path = "Target Support Files/Pods-New Smart/Pods-New Smart.debug.xcconfig"; sourceTree = "<group>"; };
-		2D908667347FFF18528E6DC3 /* Pods_New_Smart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_New_Smart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A5B8D9D5BC5BFABEE66EBB5 /* Pods-New Smart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New Smart.debug.xcconfig"; path = "Target Support Files/Pods-New Smart/Pods-New Smart.debug.xcconfig"; sourceTree = "<group>"; };
 		5C9AD0022EAF7F1C001F3F4D /* New Smart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "New Smart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C9AD0502EAF8085001F3F4D /* SmartView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SmartView.framework; path = "../SmartViewSDK-iOS-Xcode14/SmartView.xcframework/ios-arm64_x86_64-simulator/SmartView.framework"; sourceTree = SOURCE_ROOT; };
-		A80F073254C846B456392DB3 /* Pods-New Smart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New Smart.release.xcconfig"; path = "Target Support Files/Pods-New Smart/Pods-New Smart.release.xcconfig"; sourceTree = "<group>"; };
+		5C9AD0502EAF8085001F3F4D /* SmartView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SmartView.framework; path = Frameworks/SmartView.framework; sourceTree = SOURCE_ROOT; };
+		C057A04699608164374EB379 /* Pods_New_Smart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_New_Smart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE3665F165FCF198F84336D3 /* Pods-New Smart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New Smart.release.xcconfig"; path = "Target Support Files/Pods-New Smart/Pods-New Smart.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,8 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C9AD0CA2EAF8C34001F3F4D /* TVCommanderKit in Frameworks */,
-				7BA0D7A5958BBD6F45292E90 /* Pods_New_Smart.framework in Frameworks */,
+				1E86213604FD6BF575F3666D /* Pods_New_Smart.framework in Frameworks */,
+				5C9AD0512EAF8085001F3F4D /* SmartView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				5C9AD0502EAF8085001F3F4D /* SmartView.framework */,
-				2D908667347FFF18528E6DC3 /* Pods_New_Smart.framework */,
+				C057A04699608164374EB379 /* Pods_New_Smart.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -70,8 +85,8 @@
 		A0CA4646AFCA086778CF5BFC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0C65D160C2DC73D66D7A99F9 /* Pods-New Smart.debug.xcconfig */,
-				A80F073254C846B456392DB3 /* Pods-New Smart.release.xcconfig */,
+				5A5B8D9D5BC5BFABEE66EBB5 /* Pods-New Smart.debug.xcconfig */,
+				CE3665F165FCF198F84336D3 /* Pods-New Smart.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -83,10 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5C9AD0102EAF7F1D001F3F4D /* Build configuration list for PBXNativeTarget "New Smart" */;
 			buildPhases = (
-				D6C860034E888542DFC3DC5E /* [CP] Check Pods Manifest.lock */,
+				C9198589BD109E02B83D16C3 /* [CP] Check Pods Manifest.lock */,
 				5C9ACFFE2EAF7F1C001F3F4D /* Sources */,
 				5C9ACFFF2EAF7F1C001F3F4D /* Frameworks */,
 				5C9AD0002EAF7F1C001F3F4D /* Resources */,
+				5C9AD0532EAF8085001F3F4D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -96,9 +112,6 @@
 				5C9AD0042EAF7F1C001F3F4D /* New Smart */,
 			);
 			name = "New Smart";
-			packageProductDependencies = (
-				5C9AD0C92EAF8C34001F3F4D /* TVCommanderKit */,
-			);
 			productName = "New Smart";
 			productReference = 5C9AD0022EAF7F1C001F3F4D /* New Smart.app */;
 			productType = "com.apple.product-type.application";
@@ -127,9 +140,6 @@
 			);
 			mainGroup = 5C9ACFF92EAF7F1C001F3F4D;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				5C9AD0C82EAF8C34001F3F4D /* XCRemoteSwiftPackageReference "TVCommanderKit" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5C9AD0032EAF7F1C001F3F4D /* Products */;
 			projectDirPath = "";
@@ -151,7 +161,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D6C860034E888542DFC3DC5E /* [CP] Check Pods Manifest.lock */ = {
+		C9198589BD109E02B83D16C3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -307,28 +317,35 @@
 		};
 		5C9AD0112EAF7F1D001F3F4D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C65D160C2DC73D66D7A99F9 /* Pods-New Smart.debug.xcconfig */;
+			baseConfigurationReference = 5A5B8D9D5BC5BFABEE66EBB5 /* Pods-New Smart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"New Smart/Preview Content\"";
-				DEVELOPMENT_TEAM = Z24M4HH7WL;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "New-Smart-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart View";
+				INFOPLIST_KEY_NSBonjourServices = "_samsungms._tcp _samsung-smart-view._tcp _airplay._tcp";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs access to the local network to discover and connect to Samsung Smart TVs on your network.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pet.app.New-Smart";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.remote.test.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -338,28 +355,35 @@
 		};
 		5C9AD0122EAF7F1D001F3F4D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A80F073254C846B456392DB3 /* Pods-New Smart.release.xcconfig */;
+			baseConfigurationReference = CE3665F165FCF198F84336D3 /* Pods-New Smart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"New Smart/Preview Content\"";
-				DEVELOPMENT_TEAM = Z24M4HH7WL;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "New-Smart-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart View";
+				INFOPLIST_KEY_NSBonjourServices = "_samsungms._tcp _samsung-smart-view._tcp _airplay._tcp";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app needs access to the local network to discover and connect to Samsung Smart TVs on your network.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pet.app.New-Smart";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.remote.test.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -389,25 +413,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5C9AD0C82EAF8C34001F3F4D /* XCRemoteSwiftPackageReference "TVCommanderKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/wdesimini/TVCommanderKit";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5C9AD0C92EAF8C34001F3F4D /* TVCommanderKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5C9AD0C82EAF8C34001F3F4D /* XCRemoteSwiftPackageReference "TVCommanderKit" */;
-			productName = TVCommanderKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5C9ACFFA2EAF7F1C001F3F4D /* Project object */;
 }

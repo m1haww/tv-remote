@@ -5,7 +5,11 @@
       "Bash(pod deintegrate:*)",
       "Bash(pod install)",
       "Bash(xcodebuild:*)",
-      "Bash(plutil:*)"
+      "Bash(plutil:*)",
+      "Bash(cp:*)",
+      "Bash(swift:*)",
+      "Bash(swiftc:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []

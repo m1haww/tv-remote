@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 71;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,8 +19,8 @@
 		5270EF1881AF65302C6F2AADAD21C731 /* Pods-New Smart-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-New Smart-acknowledgements.plist"; sourceTree = "<group>"; };
 		69405EC38849E9450694632B7E2444B8 /* Pods-New Smart-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-New Smart-umbrella.h"; sourceTree = "<group>"; };
 		7E3ECC78063A80DC8ACEE8F6435F859B /* Pods-New Smart.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-New Smart.modulemap"; sourceTree = "<group>"; };
-		7E886CADBE0A9AAD5BC89DCC1E142181 /* Pods_New_Smart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_New_Smart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7E886CADBE0A9AAD5BC89DCC1E142181 /* Pods-New Smart */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-New Smart"; path = Pods_New_Smart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A30CE716F278B7654720B9017007041F /* Pods-New Smart-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-New Smart-acknowledgements.markdown"; sourceTree = "<group>"; };
 		AF9D93A631437997F5D6C042F44994C6 /* Pods-New Smart-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-New Smart-dummy.m"; sourceTree = "<group>"; };
 		DCEA73DEAFC15E78E01E4F6BB2CA9EFC /* Pods-New Smart-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-New Smart-Info.plist"; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		D0111A4B4B71E6DAFBF26E2D752BAC16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7E886CADBE0A9AAD5BC89DCC1E142181 /* Pods_New_Smart.framework */,
+				7E886CADBE0A9AAD5BC89DCC1E142181 /* Pods-New Smart */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,7 +125,7 @@
 			);
 			name = "Pods-New Smart";
 			productName = Pods_New_Smart;
-			productReference = 7E886CADBE0A9AAD5BC89DCC1E142181 /* Pods_New_Smart.framework */;
+			productReference = 7E886CADBE0A9AAD5BC89DCC1E142181 /* Pods-New Smart */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -146,6 +146,8 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = D0111A4B4B71E6DAFBF26E2D752BAC16 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

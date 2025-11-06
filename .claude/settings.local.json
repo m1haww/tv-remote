@@ -9,7 +9,19 @@
       "Bash(cp:*)",
       "Bash(swift:*)",
       "Bash(swiftc:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(lipo -info:*)",
+      "Bash(lipo:*)",
+      "Bash(otool -l:*)",
+      "Bash(./fix_smartview_framework.sh)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(xcrun devicectl:*)",
+      "Bash(xcrun instruments:*)",
+      "Bash(xcrun xctrace:*)",
+      "Bash(security find-identity:*)",
+      "Bash(xcrun xcodebuild:*)",
+      "Bash(open:*)"
     ],
     "deny": [],
     "ask": []

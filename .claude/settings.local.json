@@ -21,7 +21,8 @@
       "Bash(xcrun xctrace:*)",
       "Bash(security find-identity:*)",
       "Bash(xcrun xcodebuild:*)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(codesign:*)"
     ],
     "deny": [],
     "ask": []

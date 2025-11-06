@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E86213604FD6BF575F3666D /* Pods_New_Smart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C057A04699608164374EB379 /* Pods_New_Smart.framework */; };
 		81D88B712EBB8705004775E1 /* SmartView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D88B702EBB8705004775E1 /* SmartView.framework */; };
+		81D88B722EBB8705004775E1 /* SmartView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81D88B702EBB8705004775E1 /* SmartView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,6 +19,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				81D88B722EBB8705004775E1 /* SmartView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,7 +322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"New Smart/Preview Content\"";
 				DEVELOPMENT_TEAM = 37K87YLRJR;
 				ENABLE_PREVIEWS = YES;
@@ -346,7 +348,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.remote.test.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -362,7 +364,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"New Smart/Preview Content\"";
 				DEVELOPMENT_TEAM = 37K87YLRJR;
 				ENABLE_PREVIEWS = YES;
@@ -388,7 +390,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.remote.test.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

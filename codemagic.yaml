@@ -20,11 +20,6 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           pod install
-      - name: Fix SmartView Framework
-        script: |
-          echo "🔧 Fixing SmartView framework for device builds..."
-          chmod +x fix_smartview_framework.sh
-          ./fix_smartview_framework.sh
       - name: Resolve Swift Package Dependencies
         script: |
           cd $CM_BUILD_DIR

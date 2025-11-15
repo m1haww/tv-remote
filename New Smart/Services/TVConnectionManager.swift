@@ -11,7 +11,7 @@ class TVConnectionManager: ObservableObject {
     @Published var samsungTVService: Service?
     @Published var connectionError: String?
 
-    private let tvController = TVController()
+    private let tvController = TVController.shared
     private var connectionTimer: Timer?
 
     private init() {}
@@ -32,75 +32,31 @@ class TVConnectionManager: ObservableObject {
         // Clear any existing connection
         disconnectFromTV()
 
-        // Store the TV we're trying to connect to
         connectedTV = tv
 
         // Connect TVController to the TV
         print("🔗 TVConnectionManager: Initializing WebSocket connection...")
-        tvController.connectToTV(ipAddress: tv.ipAddress)
-        
-        samsungTVService = NetworkScanner.shared.getSamsungTVService(for: tv)
-//        connectionStatus = .connected
-//        isConnectedToTV = true
 
-        // Set a timeout for the connection attempt
-//        connectionTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { [weak self] _ in
-//            self?.handleConnectionTimeout()
-//        }
-
-        // Check connection status periodically
-//        checkConnectionStatus()
-    }
-
-    private func checkConnectionStatus() {
-        // Check if WebSocket connection is established
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            if self.tvController.isWebSocketConnected {
-                self.handleSuccessfulConnection()
-            } else {
-                // Retry logic - try one more time
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    if self.tvController.isWebSocketConnected {
-                        self.handleSuccessfulConnection()
-                    } else {
-                        self.handleConnectionFailure("Failed to establish WebSocket connection")
-                    }
-                }
+        // Set up connection status callback
+        tvController.connectionStatusChanged = { [weak self] isConnected in
+            if isConnected {
+                self?.connectionStatus = .connected
+                self?.isConnectedToTV = true
+                print("✅ TVConnectionManager: WebSocket connection established!")
+            } else if self?.connectionStatus != .connecting {
+                self?.connectionStatus = .disconnected
+                self?.isConnectedToTV = false
+                self?.connectedTV = nil
+                self?.samsungTVService = nil
+                print("❌ TVConnectionManager: WebSocket connection lost!")
             }
         }
-    }
 
-    private func handleSuccessfulConnection() {
-        guard let tv = connectedTV else { return }
+        tvController.connectToTV(ipAddress: tv.ipAddress)
 
-        connectionTimer?.invalidate()
-        connectionTimer = nil
-
-        isConnectedToTV = true
-        connectionStatus = .connected
-        connectionError = nil
-
-        print("✅ TVConnectionManager: Successfully connected to TV: \(tv.name)")
-        print("📊 TVConnectionManager: Connection status - isConnected: \(isConnectedToTV)")
-    }
-
-    private func handleConnectionTimeout() {
-        print("⏰ TVConnectionManager: Connection timeout")
-        handleConnectionFailure("Connection timeout - make sure the TV is on and connected to the same network")
-    }
-
-    private func handleConnectionFailure(_ error: String) {
-        connectionTimer?.invalidate()
-        connectionTimer = nil
-
+        samsungTVService = NetworkScanner.shared.getSamsungTVService(for: tv)
+        connectionStatus = .connecting
         isConnectedToTV = false
-        connectionStatus = .failed
-        connectionError = error
-
-        print("❌ TVConnectionManager: Connection failed - \(error)")
-
-        // Clean up the connection attempt
-        tvController.disconnectTV()
     }
 
     @MainActor
@@ -108,8 +64,6 @@ class TVConnectionManager: ObservableObject {
         print("📺 TVConnectionManager: Connecting Samsung TV service for \(discoveredTV.name)")
         samsungTVService = service
 
-        // For Samsung TVs discovered via SmartView, we still use WebSocket for remote control
-        // The SmartView service is used for app launching and other advanced features
         connectToTV(discoveredTV)
     }
     
@@ -137,12 +91,10 @@ class TVConnectionManager: ObservableObject {
         if isConnectedToTV {
             disconnectFromTV()
         } else {
-            // This would typically show the TV selection view
             print("🔍 Looking for TVs to connect...")
         }
     }
     
-    // MARK: - TV Control Functions
     func sendTVCommand(_ command: TVCommand) {
         print("🎮 TVConnectionManager: Received command \(command)")
         print("📊 TVConnectionManager: Check connection status - isConnected: \(isConnectedToTV)")

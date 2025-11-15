@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Group 27.png",
+      "filename" : "Cast-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Cast-3.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Cast-4.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

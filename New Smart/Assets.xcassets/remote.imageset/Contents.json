@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Remote.png",
+      "filename" : "Remote-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Remote-3.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Remote-4.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

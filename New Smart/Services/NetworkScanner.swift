@@ -17,15 +17,10 @@ class NetworkScanner: ObservableObject, ServiceSearchDelegate {
     private var samsungTVServices: [String: Service] = [:]
     
     func startDiscovery() {
-        print("🔍 Starting enhanced discovery with SmartView SDK + Network Scan...")
         isScanning = true
         discoveredTVs.removeAll()
 
         discoverSamsungTVs()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            self.stopDiscovery()
-        }
     }
     
     private func discoverSamsungTVs() {
@@ -81,7 +76,9 @@ class NetworkScanner: ObservableObject, ServiceSearchDelegate {
                 
                 self.samsungTVServices[service.id] = service
                 
-                self.discoveredTVs.append(discoveredTV)
+                DispatchQueue.main.async {
+                    self.discoveredTVs.append(discoveredTV)
+                }
                 print("✅ Added Samsung TV: \(service.name)")
             })
         }

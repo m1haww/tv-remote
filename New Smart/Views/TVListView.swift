@@ -14,7 +14,6 @@ struct TVListView: View {
                 Color(hex: "16171D").ignoresSafeArea()
                 
                 VStack(spacing: 20) {
-                    // Header
                     HStack {
                         Button(action: {
                             discoveryService.stopDiscovery()
@@ -24,44 +23,29 @@ struct TVListView: View {
                                 .foregroundColor(Color(hex: "DCCBFF"))
                                 .font(.title2)
                         }
-                        
+
                         Spacer()
-                        
-                        Text("Available TVs")
+
+                        Text("Your connects")
                             .foregroundColor(.white)
                             .font(.headline)
-                        
+
                         Spacer()
-                        
-                        Button(action: {
-                            if !discoveryService.isScanning {
-                                discoveryService.startDiscovery()
-                            }
-                        }) {
-                            Image(systemName: "arrow.clockwise")
-                                .foregroundColor(Color(hex: "DCCBFF"))
-                                .font(.title2)
+
+                        if discoveryService.isScanning {
+                            ProgressView()
+                                .scaleEffect(1.2)
+                                .tint(.white)
+                        } else {
+                            // Empty space to maintain layout
+                            Color.clear
+                                .frame(width: 24, height: 24)
                         }
-                        .disabled(discoveryService.isScanning)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 30)
                     
-                    // Scanning indicator
-                    if discoveryService.isScanning {
-                        HStack(spacing: 15) {
-                            ProgressView()
-                                .scaleEffect(0.8)
-                                .tint(Color(hex: "7511EB"))
-                            
-                            Text("Searching for TVs...")
-                                .foregroundColor(.gray)
-                                .font(.subheadline)
-                        }
-                        .padding()
-                    }
                     
-                    // TV List
                     if discoveryService.discoveredTVs.isEmpty && !discoveryService.isScanning {
                         VStack(spacing: 30) {
                             Spacer()
@@ -153,54 +137,26 @@ struct TVListView: View {
 struct TVDeviceRow: View {
     let tv: DiscoveredTV
     let onSelect: () -> Void
-    
+
     var body: some View {
         HStack(spacing: 15) {
-            // TV Icon
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color(hex: "B917FF"), Color(hex: "7511EB")]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .frame(width: 60, height: 50)
-                
-                Image("Broadcast")
-                    .resizable()
-                    .renderingMode(.template)
-                    .foregroundColor(.white)
-                    .frame(width: 28, height: 28)
-            }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(tv.name)
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .lineLimit(1)
-                
-                Text(tv.ipAddress)
-                    .foregroundColor(.gray)
-                    .font(.subheadline)
-                
-                if let modelName = tv.modelName, !modelName.isEmpty {
-                    Text(modelName)
-                        .foregroundColor(.gray)
-                        .font(.caption)
-                }
-            }
-            
+            // TV Name
+            Text(tv.name)
+                .foregroundColor(.white)
+                .font(.body)
+                .fontWeight(.medium)
+                .lineLimit(1)
+
             Spacer()
-            
-            // Connect arrow
-            Image(systemName: "chevron.right")
-                .foregroundColor(Color(hex: "DCCBFF"))
-                .font(.headline)
+
+            // Cast Icon
+            Image(systemName: "tv")
+                .foregroundColor(.white)
+                .font(.title3)
                 .fontWeight(.medium)
         }
-        .padding()
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
         .background(
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color(hex: "3D3D5C"))

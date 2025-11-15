@@ -35,6 +35,37 @@ workflows:
       - name: Set up provisioning profiles settings on Xcode project
         script: |
           xcode-project use-profiles
+      - name: Strip simulator architectures from SmartView framework
+        script: |
+          echo "Stripping simulator architectures from SmartView framework..."
+          FRAMEWORK_PATH="./Frameworks/SmartView.framework/SmartView"
+          if [ -f "$FRAMEWORK_PATH" ]; then
+            echo "Original framework info:"
+            lipo -info "$FRAMEWORK_PATH"
+
+            # Check if x86_64 exists and remove it
+            if lipo -info "$FRAMEWORK_PATH" | grep -q "x86_64"; then
+              echo "Removing x86_64 architecture..."
+              lipo -remove x86_64 -output "${FRAMEWORK_PATH}_temp" "$FRAMEWORK_PATH"
+              mv "${FRAMEWORK_PATH}_temp" "$FRAMEWORK_PATH"
+            fi
+
+            # Check if i386 exists and remove it
+            if lipo -info "$FRAMEWORK_PATH" | grep -q "i386"; then
+              echo "Removing i386 architecture..."
+              lipo -remove i386 -output "${FRAMEWORK_PATH}_temp" "$FRAMEWORK_PATH"
+              mv "${FRAMEWORK_PATH}_temp" "$FRAMEWORK_PATH"
+            fi
+
+            # Remove simulator Swift modules
+            echo "Removing simulator Swift modules..."
+            find "./Frameworks/SmartView.framework/Modules/SmartView.swiftmodule" -name "*simulator*" -delete 2>/dev/null || true
+
+            echo "Framework stripping completed. Final framework info:"
+            lipo -info "$FRAMEWORK_PATH"
+          else
+            echo "SmartView framework not found at expected path"
+          fi
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR

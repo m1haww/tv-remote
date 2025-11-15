@@ -10,7 +10,6 @@ class SamsungTVAppLauncher: ObservableObject {
     @Published var isConnecting: Bool = false
     @Published var connectionError: String?
 
-    // Samsung TV App Database
     static let samsungTVApps: [TVApp] = [
         TVApp(
             id: "111299001912",
@@ -31,19 +30,19 @@ class SamsungTVAppLauncher: ObservableObject {
             backgroundColor: "#113CCF"
         ),
         TVApp(
-            id: "3201512006785",        // updated Amazon Prime Video ID
+            id: "3201512006785",
             name: "Amazon Prime Video",
             imageName: "primevideo",
             backgroundColor: "#00A8E1"
         ),
         TVApp(
-            id: "3201601007625",        // updated Hulu ID
+            id: "3201601007625",
             name: "Hulu",
             imageName: "hulu",
             backgroundColor: "#1CE783"
         ),
         TVApp(
-            id: "3201601007230",        // updated HBO Max ID (pre-rebrand)
+            id: "3201601007230",
             name: "HBO Max",
             imageName: "hbomax",
             backgroundColor: "#8A2BE2"
@@ -85,7 +84,6 @@ class SamsungTVAppLauncher: ObservableObject {
         isConnecting = true
         connectionError = nil
 
-        // Create application instance
         let channelURI = "com.samsung.multiscreen.tvapp.\(app.name.lowercased())"
 
         guard let msApplication = service.createApplication(app.id as AnyObject, channelURI: channelURI, args: nil) else {
@@ -99,7 +97,6 @@ class SamsungTVAppLauncher: ObservableObject {
 
         print("🔗 SamsungTVAppLauncher: Connecting to \(app.name) application...")
 
-        // Connect to the application (this will launch it if not already running)
         msApplication.connect([:] as [String : String]) { [weak self] (client, error) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
@@ -108,7 +105,6 @@ class SamsungTVAppLauncher: ObservableObject {
                     print("✅ SamsungTVAppLauncher: Successfully launched \(app.name)")
                     self.connectedApplications[app.id] = msApplication
 
-                    // Disconnect after a short delay to free resources
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         msApplication.disconnect()
                         self.connectedApplications.removeValue(forKey: app.id)
@@ -166,7 +162,6 @@ class SamsungTVAppLauncher: ObservableObject {
     }
 }
 
-// MARK: - TV App Model
 struct TVApp: Identifiable, Equatable {
     let id: String
     let name: String

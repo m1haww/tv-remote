@@ -1,10 +1,3 @@
-//
-//  CastView.swift
-//  Smart TV
-//
-//  Created by Mihail Ozun on 13.10.2025.
-//
-
 import SwiftUI
 
 struct CastView: View {

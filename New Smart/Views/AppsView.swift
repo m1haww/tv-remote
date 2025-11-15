@@ -22,7 +22,6 @@ struct AppsView: View {
                 AppBar(title: "TV Remote")
                 
                 if tvConnectionManager.isConnectedToTV {
-                    // Connected TV Banner
                     ConnectedTVCard()
                     
                     // Apps Grid

@@ -62,20 +62,21 @@ struct RemoteView: View {
                             .foregroundColor(.white)
                             .font(.title2)
                             .fontWeight(.semibold)
-                        
+
                         HStack(spacing: 8) {
-                            // Connection status with Samsung detection
                             if tvConnectionManager.isConnectedToTV {
-                                if isSamsungTV {
-                                    Text("🔗 Samsung TV Connected")
-                                        .foregroundColor(.green)
+                                Button(action: {
+                                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                                    impactFeedback.impactOccurred()
+                                    tvConnectionManager.disconnectFromTV()
+                                }) {
+                                    Text("Disconnect")
+                                        .foregroundColor(.red)
                                         .font(.subheadline)
-                                } else {
-                                    Text("Connected")
-                                        .foregroundColor(.blue)
-                                        .font(.subheadline)
+                                        .fontWeight(.medium)
                                 }
                             } else {
+                                // Connection status (only when not connected)
                                 switch tvConnectionManager.connectionStatus {
                                 case .connecting:
                                     Text("Connecting...")
@@ -90,14 +91,6 @@ struct RemoteView: View {
                                         .foregroundColor(.blue)
                                         .font(.subheadline)
                                 }
-                            }
-
-                            if tvConnectionManager.isConnectedToTV {
-                                Button("Disconnect") {
-                                    tvConnectionManager.disconnectFromTV()
-                                }
-                                .foregroundColor(.red)
-                                .font(.caption)
                             }
                         }
                     }
@@ -116,7 +109,7 @@ struct RemoteView: View {
                     RoundedRectangle(cornerRadius: 25)
                         .stroke(Color(hex: "110E19"), lineWidth: 1)
                 )
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 15)
 
                 // Error message display
                 if let errorMessage = tvConnectionManager.connectionError {
@@ -137,9 +130,6 @@ struct RemoteView: View {
                         .padding(.horizontal, 20)
                         .padding(.top, -10)
                 }
-                
-                
-                    
                 
                 // Top Control Buttons
                 HStack(spacing: 20) {
@@ -190,6 +180,8 @@ struct RemoteView: View {
                     }
                     
                     Button(action: {
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                        impactFeedback.impactOccurred()
                         showKeyboard = true
                     }) {
                         ZStack {
@@ -231,10 +223,13 @@ struct RemoteView: View {
                 }
                 
                 // Bottom Control Buttons - 4 rows x 3 columns
-                VStack(spacing: 15) {
+                VStack(spacing: 0) {
                     // Row 1
-                    HStack(spacing: 15) {
+                    HStack(spacing: 10) {
                         RemoteButton(icon: "arrow.uturn.left") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Back command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.back)
@@ -245,6 +240,9 @@ struct RemoteView: View {
                         .frame(maxWidth: .infinity)
 
                         PowerButton(action: {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Power command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.powerToggle)
@@ -255,6 +253,9 @@ struct RemoteView: View {
                         .frame(maxWidth: .infinity)
 
                         RemoteButton(icon: "house") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Home command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.home)
@@ -264,11 +265,14 @@ struct RemoteView: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 15)
                     
                     // Row 2
-                    HStack(spacing: 15) {
+                    HStack(spacing: 10) {
                         RemoteButton(icon: "goforward") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Forward command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.next)
@@ -279,12 +283,17 @@ struct RemoteView: View {
                         .frame(maxWidth: .infinity)
 
                         RemoteButton(icon: "mic") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
                             // Voice functionality - could be implemented later with Samsung's voice API
                             print("🎤 Voice command not yet implemented")
                         }
                         .frame(maxWidth: .infinity)
 
                         RemoteButton(icon: "asterisk") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+
                             // Menu/Settings button for Samsung TV
                             if canSendCommands {
                                 print("📺 Sending Menu command to Samsung TV")
@@ -296,11 +305,15 @@ struct RemoteView: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 15)
+                    .padding(.top, 7.5)
                     
                     // Row 3
-                    HStack(spacing: 15) {
+                    HStack(spacing: 10) {
                         RemoteButton(icon: "backward.end") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Previous command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.previous)
@@ -311,6 +324,9 @@ struct RemoteView: View {
                         .frame(maxWidth: .infinity)
 
                         RemoteButton(icon: "playpause") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Play/Pause command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.playPause)
@@ -321,6 +337,9 @@ struct RemoteView: View {
                         .frame(maxWidth: .infinity)
 
                         RemoteButton(icon: "forward.end") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
+
                             if canSendCommands {
                                 print("📺 Sending Next command to Samsung TV")
                                 tvConnectionManager.sendTVCommand(.next)
@@ -330,26 +349,34 @@ struct RemoteView: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 15)
+                    .padding(.top, 10)
                     
                     // Row 4
-                    HStack(spacing: 15) {
+                    HStack(spacing: 10) {
                         RemoteButton(icon: "minus") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
                             tvConnectionManager.sendTVCommand(.volumeDown)
                         }
                         .frame(maxWidth: .infinity)
                         
                         RemoteButton(icon: "speaker.slash") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                            impactFeedback.impactOccurred()
                             tvConnectionManager.sendTVCommand(.mute)
                         }
                         .frame(maxWidth: .infinity)
                         
                         RemoteButton(icon: "plus") {
+                            let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                            impactFeedback.impactOccurred()
                             tvConnectionManager.sendTVCommand(.volumeUp)
                         }
                         .frame(maxWidth: .infinity)
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 15)
+                    .padding(.top, 10)
                 }
                 
                 Spacer()
@@ -390,40 +417,80 @@ struct RemoteView: View {
                             .font(.body)
                             .padding(.horizontal, 20)
                         
-                        Button(action: {
-                            if !keyboardText.isEmpty {
-                                if canSendCommands {
-                                    print("📺 Sending text to Samsung TV: \(keyboardText)")
-                                    tvConnectionManager.sendTextToTV(keyboardText)
-                                } else {
-                                    print("❌ Cannot send text - not connected to Samsung TV")
-                                }
-                            }
-                            showKeyboard = false
-                            keyboardText = ""
-                        }) {
-                            Text("Done")
-                                .foregroundColor(.white)
-                                .font(.body)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(
-                                    Group {
-                                        if keyboardText.isEmpty {
-                                            RoundedRectangle(cornerRadius: 15)
-                                                .fill(Color(hex: "3D3D5C"))
-                                        } else {
-                                            RoundedRectangle(cornerRadius: 15)
-                                                .fill(
-                                                    LinearGradient(
-                                                        gradient: Gradient(colors: [Color(hex: "9037F7"), Color(hex: "6814CB")]),
-                                                        startPoint: .top,
-                                                        endPoint: .bottom
-                                                    )
-                                                )
+                        HStack(spacing: 15) {
+                            // Done button
+                            Button(action: {
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                                impactFeedback.impactOccurred()
+
+                                if !keyboardText.isEmpty {
+                                    if canSendCommands {
+                                        print("📺 Sending text to Samsung TV: \(keyboardText)")
+                                        tvConnectionManager.sendTextToTV(keyboardText)
+                                        // Automatically send Enter key after sending the text
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            print("📺 Sending Enter command to Samsung TV")
+                                            tvConnectionManager.sendTVCommand(.select)
                                         }
+                                    } else {
+                                        print("❌ Cannot send text - not connected to Samsung TV")
                                     }
-                                )
+                                }
+                                showKeyboard = false
+                                keyboardText = ""
+                            }) {
+                                Text("Done")
+                                    .foregroundColor(.white)
+                                    .font(.body)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(
+                                        Group {
+                                            if keyboardText.isEmpty {
+                                                RoundedRectangle(cornerRadius: 15)
+                                                    .fill(Color(hex: "3D3D5C"))
+                                            } else {
+                                                RoundedRectangle(cornerRadius: 15)
+                                                    .fill(
+                                                        LinearGradient(
+                                                            gradient: Gradient(colors: [Color(hex: "9037F7"), Color(hex: "6814CB")]),
+                                                            startPoint: .top,
+                                                            endPoint: .bottom
+                                                        )
+                                                    )
+                                            }
+                                        }
+                                    )
+                            }
+
+                            // Enter button
+                            Button(action: {
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                                impactFeedback.impactOccurred()
+
+                                if canSendCommands {
+                                    print("📺 Sending Enter command to Samsung TV")
+                                    tvConnectionManager.sendTVCommand(.select)
+                                } else {
+                                    print("❌ Cannot send Enter - not connected to Samsung TV")
+                                }
+                            }) {
+                                Image(systemName: "arrow.right")
+                                    .foregroundColor(.white)
+                                    .font(.title2)
+                                    .fontWeight(.medium)
+                                    .frame(width: 80, height: 52)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .fill(
+                                                LinearGradient(
+                                                    gradient: Gradient(colors: [Color(hex: "9037F7"), Color(hex: "6814CB")]),
+                                                    startPoint: .top,
+                                                    endPoint: .bottom
+                                                )
+                                            )
+                                    )
+                            }
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, 30)
@@ -467,9 +534,9 @@ struct DirectionalPad: View {
             
             // Center OK text
             Text("OK")
-                .foregroundColor(Color(hex: "DCCBFF"))
-                .font(.title2)
-                .fontWeight(.medium)
+                .foregroundColor(Color.white)
+                .font(.title)
+                .fontWeight(.semibold)
                 .opacity(pressedButton == "OK" ? 0.5 : 1.0)
                 .scaleEffect(pressedButton == "OK" ? 0.95 : 1.0)
             
@@ -479,7 +546,7 @@ struct DirectionalPad: View {
                 Image(systemName: "chevron.up")
                     .foregroundColor(Color(hex: "DCCBFF"))
                     .font(.title)
-                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
                     .opacity(pressedButton == "up" ? 0.5 : 1.0)
                     .scaleEffect(pressedButton == "up" ? 0.9 : 1.0)
                 
@@ -490,7 +557,7 @@ struct DirectionalPad: View {
                     Image(systemName: "chevron.left")
                         .foregroundColor(Color(hex: "DCCBFF"))
                         .font(.title)
-                        .fontWeight(.semibold)
+                        .fontWeight(.bold)
                         .opacity(pressedButton == "left" ? 0.5 : 1.0)
                         .scaleEffect(pressedButton == "left" ? 0.9 : 1.0)
                     
@@ -500,7 +567,7 @@ struct DirectionalPad: View {
                     Image(systemName: "chevron.right")
                         .foregroundColor(Color(hex: "DCCBFF"))
                         .font(.title)
-                        .fontWeight(.semibold)
+                        .fontWeight(.bold)
                         .opacity(pressedButton == "right" ? 0.5 : 1.0)
                         .scaleEffect(pressedButton == "right" ? 0.9 : 1.0)
                 }
@@ -511,7 +578,7 @@ struct DirectionalPad: View {
                 Image(systemName: "chevron.down")
                     .foregroundColor(Color(hex: "DCCBFF"))
                     .font(.title)
-                    .fontWeight(.semibold)
+                    .fontWeight(.bold)
                     .opacity(pressedButton == "down" ? 0.5 : 1.0)
                     .scaleEffect(pressedButton == "down" ? 0.9 : 1.0)
             }
@@ -522,6 +589,9 @@ struct DirectionalPad: View {
             VStack(spacing: 0) {
                 // Up button
                 Button(action: {
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+
                     if canSendCommands {
                         print("📺 Sending Up command to Samsung TV")
                         tvConnectionManager.sendTVCommand(.up)
@@ -547,6 +617,9 @@ struct DirectionalPad: View {
                 HStack(spacing: 0) {
                     // Left button
                     Button(action: {
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                        impactFeedback.impactOccurred()
+
                         if canSendCommands {
                             print("📺 Sending Left command to Samsung TV")
                             tvConnectionManager.sendTVCommand(.left)
@@ -571,6 +644,9 @@ struct DirectionalPad: View {
                     
                     // Center OK button
                     Button(action: {
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                        impactFeedback.impactOccurred()
+
                         if canSendCommands {
                             print("📺 Sending Select command to Samsung TV")
                             tvConnectionManager.sendTVCommand(.select)
@@ -595,6 +671,9 @@ struct DirectionalPad: View {
                     
                     // Right button
                     Button(action: {
+                        let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                        impactFeedback.impactOccurred()
+
                         if canSendCommands {
                             print("📺 Sending Right command to Samsung TV")
                             tvConnectionManager.sendTVCommand(.right)
@@ -620,6 +699,9 @@ struct DirectionalPad: View {
                 
                 // Down button
                 Button(action: {
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
+
                     if canSendCommands {
                         print("📺 Sending Down command to Samsung TV")
                         tvConnectionManager.sendTVCommand(.down)
@@ -655,7 +737,7 @@ struct RemoteButton: View {
     let isSelected: Bool
     let action: () -> Void
     
-    init(icon: String, width: CGFloat = 75, height: CGFloat = 45, cornerRadius: CGFloat = 20, isSelected: Bool = false, action: @escaping () -> Void = {}) {
+    init(icon: String, width: CGFloat = 75, height: CGFloat = 60, cornerRadius: CGFloat = 20, isSelected: Bool = false, action: @escaping () -> Void = {}) {
         self.icon = icon
         self.width = width
         self.height = height

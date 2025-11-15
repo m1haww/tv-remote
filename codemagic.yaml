@@ -35,10 +35,13 @@ workflows:
       - name: Set up provisioning profiles settings on Xcode project
         script: |
           xcode-project use-profiles
-      - name: Strip simulator architectures from SmartView framework
+      - name: Prepare SmartView framework for device build
         script: |
-          echo "Stripping simulator architectures from SmartView framework..."
-          FRAMEWORK_PATH="./Frameworks/SmartView.framework/SmartView"
+          echo "Preparing SmartView framework for device-only build..."
+          FRAMEWORK_DIR="./Frameworks/SmartView.framework"
+          FRAMEWORK_PATH="$FRAMEWORK_DIR/SmartView"
+          SWIFTMODULE_DIR="$FRAMEWORK_DIR/Modules/SmartView.swiftmodule"
+
           if [ -f "$FRAMEWORK_PATH" ]; then
             echo "Original framework info:"
             lipo -info "$FRAMEWORK_PATH"
@@ -57,14 +60,47 @@ workflows:
               mv "${FRAMEWORK_PATH}_temp" "$FRAMEWORK_PATH"
             fi
 
-            # Remove simulator Swift modules
-            echo "Removing simulator Swift modules..."
-            find "./Frameworks/SmartView.framework/Modules/SmartView.swiftmodule" -name "*simulator*" -delete 2>/dev/null || true
-
-            echo "Framework stripping completed. Final framework info:"
+            echo "Framework binary stripping completed. Final framework info:"
             lipo -info "$FRAMEWORK_PATH"
+
+            # Handle Swift modules - create device modules from simulator modules
+            if [ -d "$SWIFTMODULE_DIR" ]; then
+              echo "Processing Swift modules..."
+              cd "$SWIFTMODULE_DIR"
+
+              # Create arm64-apple-ios modules from arm64-apple-ios-simulator modules if they exist
+              for ext in swiftinterface private.swiftinterface swiftdoc abi.json; do
+                if [ -f "arm64-apple-ios-simulator.$ext" ]; then
+                  echo "Creating arm64-apple-ios.$ext from simulator version"
+                  cp "arm64-apple-ios-simulator.$ext" "arm64-apple-ios.$ext"
+                fi
+              done
+
+              # Fix target platform in Swift interface files
+              if [ -f "arm64-apple-ios.swiftinterface" ]; then
+                echo "Fixing target platform in arm64-apple-ios.swiftinterface..."
+                sed 's/arm64-apple-ios8.0-simulator/arm64-apple-ios16.0/g' arm64-apple-ios.swiftinterface > arm64-apple-ios.swiftinterface.tmp
+                mv arm64-apple-ios.swiftinterface.tmp arm64-apple-ios.swiftinterface
+              fi
+
+              if [ -f "arm64-apple-ios.private.swiftinterface" ]; then
+                echo "Fixing target platform in arm64-apple-ios.private.swiftinterface..."
+                sed 's/arm64-apple-ios8.0-simulator/arm64-apple-ios16.0/g' arm64-apple-ios.private.swiftinterface > arm64-apple-ios.private.swiftinterface.tmp
+                mv arm64-apple-ios.private.swiftinterface.tmp arm64-apple-ios.private.swiftinterface
+              fi
+
+              # Remove all simulator modules
+              echo "Removing simulator Swift modules..."
+              rm -f *simulator* 2>/dev/null || true
+
+              echo "Remaining Swift modules:"
+              ls -la
+              cd - > /dev/null
+            fi
           else
-            echo "SmartView framework not found at expected path"
+            echo "SmartView framework not found at expected path: $FRAMEWORK_PATH"
+            echo "Available frameworks:"
+            find . -name "*.framework" -type d
           fi
       - name: Increment build number
         script: |

@@ -23,7 +23,12 @@
       "Bash(xcrun xcodebuild:*)",
       "Bash(open:*)",
       "Bash(codesign:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(test:*)",
+      "Bash(otool:*)",
+      "Bash(tee:*)",
+      "Bash(cat:*)",
+      "Bash(git rev-parse:*)"
     ],
     "deny": [],
     "ask": []

@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E86213604FD6BF575F3666D /* Pods_New_Smart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C057A04699608164374EB379 /* Pods_New_Smart.framework */; };
-		81BAD5C92EC86E00005D0B4D /* SmartView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BAD5C72EC86DA6005D0B4D /* SmartView.framework */; };
-		81BAD5E22EC87F99005D0B4D /* SmartView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81BAD5C72EC86DA6005D0B4D /* SmartView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81BAD6F02EC8C241005D0B4D /* SmartView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81BAD6EF2EC8C241005D0B4D /* SmartView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +18,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				81BAD5E22EC87F99005D0B4D /* SmartView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -29,7 +27,7 @@
 /* Begin PBXFileReference section */
 		5A5B8D9D5BC5BFABEE66EBB5 /* Pods-New Smart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New Smart.debug.xcconfig"; path = "Target Support Files/Pods-New Smart/Pods-New Smart.debug.xcconfig"; sourceTree = "<group>"; };
 		5C9AD0022EAF7F1C001F3F4D /* New Smart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "New Smart.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81BAD5C72EC86DA6005D0B4D /* SmartView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SmartView.framework; path = Frameworks/SmartView.framework; sourceTree = "<group>"; };
+		81BAD6EF2EC8C241005D0B4D /* SmartView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SmartView.framework; sourceTree = "<group>"; };
 		C057A04699608164374EB379 /* Pods_New_Smart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_New_Smart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3665F165FCF198F84336D3 /* Pods-New Smart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-New Smart.release.xcconfig"; path = "Target Support Files/Pods-New Smart/Pods-New Smart.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,7 +46,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E86213604FD6BF575F3666D /* Pods_New_Smart.framework in Frameworks */,
-				81BAD5C92EC86E00005D0B4D /* SmartView.framework in Frameworks */,
+				81BAD6F02EC8C241005D0B4D /* SmartView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,8 +74,8 @@
 		82A23DDB4C66484342189AE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				81BAD6EF2EC8C241005D0B4D /* SmartView.framework */,
 				C057A04699608164374EB379 /* Pods_New_Smart.framework */,
-				81BAD5C72EC86DA6005D0B4D /* SmartView.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
